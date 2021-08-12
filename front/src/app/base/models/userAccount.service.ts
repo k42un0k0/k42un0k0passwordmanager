@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KeyService } from 'src/app/base/electron/key.service';
+import { KeyService } from 'src/app/base/electron/emitter/key.service';
 import { UserAccount } from 'src/models';
 
 @Injectable({

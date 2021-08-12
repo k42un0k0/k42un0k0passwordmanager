@@ -7,6 +7,11 @@ declare interface Window {
       userAccountManager(): Promise<void>;
       main(): Promise<void>;
     };
-    ipcRenderer: Electron.IpcRenderer;
+    ipcRenderer: {
+      invoke: Electron.IpcRenderer['invoke'];
+      sendSync: Electron.IpcRenderer['sendSync'];
+      on: Electron.IpcRenderer['on'];
+      removeListener: Electron.IpcRenderer['removeListener'];
+    };
   };
 }

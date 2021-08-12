@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MutableModel } from '@aws-amplify/datastore';
-import { CipherService } from 'src/app/base/electron/cipher.service';
-import { KeyService } from 'src/app/base/electron/key.service';
+import { CipherService } from 'src/app/base/electron/emitter/cipher.service';
+import { KeyService } from 'src/app/base/electron/emitter/key.service';
 import { OuterAccount } from 'src/models';
 
 @Injectable({

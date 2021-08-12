@@ -17,6 +17,12 @@ lerna add か lerna bootstrap をつかうこと
 
 rxjs 系のプロパティは name$ の形にする
 
+### auto update
+
+mac だと調整が必要らしい
+
+https://blog.katsubemakito.net/nodejs/electron/autoupdater
+
 ### testing-library
 
 双方向バインディングを実装した際のテストに関してだけは実装の詳細のテストを許容する(あくまで現状はの話)

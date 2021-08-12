@@ -1,25 +1,24 @@
 import * as url from 'url';
-import { BrowserWindow } from 'electron';
 import { MyWindow } from './my-window';
 import { frontPath, preloadPath } from 'src/constant';
 
 export class InitialWindow extends MyWindow {
-  protected config = {
-    width: 400,
-    height: 300,
-    webPreferences: {
-      preload: preloadPath,
-    },
-    show: false,
-    frame: false,
-    resizable: false,
-    backgroundColor: '#333',
-  };
+  config(): Electron.BrowserWindowConstructorOptions {
+    return {
+      width: 400,
+      height: 300,
+      webPreferences: {
+        preload: preloadPath,
+      },
+      show: false,
+      frame: false,
+      resizable: false,
+      backgroundColor: '#333',
+    };
+  }
 
-  configure(): [BrowserWindow, string] {
-    const win = new BrowserWindow(this.config);
-
-    const startUrl = `${
+  url(): string {
+    return `${
       process.env.ELECTRON_START_URL ??
       url.format({
         pathname: frontPath,
@@ -27,6 +26,5 @@ export class InitialWindow extends MyWindow {
         slashes: true,
       })
     }#/initial`;
-    return [win, startUrl];
   }
 }

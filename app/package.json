@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "1.2.4",
+  "version": "1.2.4-test",
   "main": "./dist/app/main.js",
   "scripts": {
     "dev": "run-p watch start",
@@ -11,11 +11,18 @@
     "test": "jest",
     "lint": "eslint .",
     "tsc": "tsc --noEmit",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "package": "electron-builder --win -p always",
+    "dist": "electron-builder -p always"
   },
   "private": true,
   "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "k42un0k0",
+        "repo": "k42un0k0passwordmanager"
+      }
+    ],
     "productName": "K42un0k0 Password Manager",
     "appId": "com.electron.k42un0k0passwordmanager",
     "mac": {
@@ -38,6 +45,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "csv": "^5.5.0",
+    "electron-log": "^4.4.0",
+    "electron-updater": "^4.3.9",
     "jsdom": "^16.5.3",
     "keytar": "^7.7.0",
     "lib": "^1.2.4"

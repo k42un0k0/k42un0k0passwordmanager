@@ -68,20 +68,18 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          draft: true
 
   publish:
     if: contains(github.ref, 'tags/v')
-    needs: [test, release]
     runs-on: ${{ matrix.map.os }}
     strategy:
       matrix:
         map:
-          - os: macos-latest
-            prefix: './build/K42un0k0 Password Manager-'
-            suffix: .dmg
-            name: k42un0k0passwordmanager-mac.dmg
+          # - os: macos-latest
+          #   prefix: './build/K42un0k0 Password Manager-'
+          #   suffix: .dmg
+          #   name: k42un0k0passwordmanager-mac.dmg
           - os: windows-latest
             prefix: './build/K42un0k0 Password Manager Setup '
             suffix: .exe
@@ -104,21 +102,5 @@ jobs:
           AWS_EXPORTS: ${{secrets.AWS_EXPORTS}}
       - run: npm run bootstrap
       - run: npm run package
-      - name: Set output
-        shell: bash
-        id: vars
-        run: |
-          echo ::set-output name=asset_path::${prefix}${GITHUB_REF##*/v}${suffix}
         env:
-          prefix: ${{ matrix.map.prefix }}
-          suffix: ${{ matrix.map.suffix }}
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ${{ steps.vars.outputs.asset_path }}
-          asset_name: ${{ matrix.map.name }}
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

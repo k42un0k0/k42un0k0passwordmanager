@@ -16,7 +16,12 @@ const main = {
       return ipcRenderer.invoke(CHANNELS.windowService.main);
     },
   },
-  ipcRenderer,
+  ipcRenderer: {
+    invoke: ipcRenderer.invoke.bind(ipcRenderer),
+    sendSync: ipcRenderer.sendSync.bind(ipcRenderer),
+    on: ipcRenderer.on.bind(ipcRenderer),
+    removeListener: ipcRenderer.removeListener.bind(ipcRenderer),
+  },
 };
 
 contextBridge.exposeInMainWorld('main', main);

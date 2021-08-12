@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ElectronService } from 'src/app/base/electron/electron.service';
+import { ElectronService } from 'src/app/base/electron/emitter/electron.service';
 import { UserAccountRepository } from 'src/app/base/repositories/user-account.repository';
 
 @Component({

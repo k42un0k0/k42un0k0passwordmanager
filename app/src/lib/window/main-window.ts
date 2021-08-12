@@ -1,23 +1,16 @@
 import * as url from 'url';
-import { BrowserWindow } from 'electron';
 import { MyWindow } from './my-window';
 import { frontPath, preloadPath } from 'src/constant';
+import { UpdateMessageService } from 'src/lib/emitter/update-message.service';
 
 export class MainWindow extends MyWindow {
-  protected config = {
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: preloadPath,
-    },
-    frame: false,
-    backgroundColor: '#333',
-  };
+  constructor() {
+    super();
+    this.addEmitter(new UpdateMessageService(this.win));
+  }
 
-  configure(): [BrowserWindow, string] {
-    const win = new BrowserWindow(this.config);
-
-    const startUrl = `${
+  protected url(): string {
+    return `${
       process.env.ELECTRON_START_URL ??
       url.format({
         pathname: frontPath,
@@ -25,6 +18,17 @@ export class MainWindow extends MyWindow {
         slashes: true,
       })
     }#/`;
-    return [win, startUrl];
+  }
+
+  protected config(): Electron.BrowserWindowConstructorOptions {
+    return {
+      width: 800,
+      height: 600,
+      webPreferences: {
+        preload: preloadPath,
+      },
+      frame: false,
+      backgroundColor: '#333',
+    };
   }
 }

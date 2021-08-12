@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { nonNullable } from 'lib';
+import { CHANNELS, IUpdateMessageService, nonNullable } from 'lib';
 import { from, Observable } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { AccountEditorComponent } from './components/account-editor/account-editor.component';
 import { SidebarItem } from './components/sidebar/sidebar.component';
 import { Tab, TabService } from './services/tab.service';
+import { ElectronListener } from 'src/app/base/electron/utils/electron-listener';
 import { UserAccountService } from 'src/app/base/models/userAccount.service';
 import { OuterAccountRepository } from 'src/app/base/repositories/outer-account.repository';
 import { UserAccountRepository } from 'src/app/base/repositories/user-account.repository';
+import { UpdateMessageService } from 'src/app/main/listener/update-message.service';
+import { AutoElectronListener } from 'src/app/utils/autoUnlisten.decorator';
 import { UserAccount } from 'src/models';
 
 @Component({
@@ -16,7 +19,9 @@ import { UserAccount } from 'src/models';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
+@AutoElectronListener
 export class MainComponent {
+  listener: ElectronListener<IUpdateMessageService>;
   open = false;
   get tabLength(): number {
     return this.tabService.tabs.length;
@@ -54,6 +59,7 @@ export class MainComponent {
   );
   userAccount!: UserAccount;
   constructor(
+    private window: Window,
     private userAccountRepository: UserAccountRepository,
     private userAccountService: UserAccountService,
     private outerAccountRepository: OuterAccountRepository,
@@ -63,6 +69,7 @@ export class MainComponent {
     this.tabService.current$.pipe(filter((v): v is Tab => v != null)).subscribe((tab) => {
       this.userAccount = tab.userAccount;
     });
+    this.listener = new ElectronListener(window).listen(CHANNELS.updateMessageService, new UpdateMessageService());
   }
 
   _onClickHome(): void {

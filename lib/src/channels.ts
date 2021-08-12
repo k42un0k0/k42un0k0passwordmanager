@@ -19,4 +19,7 @@ export const CHANNELS = {
     export: 'KEY_SERVICE/EXPORT',
     import: 'KEY_SERVICE/IMPORT',
   },
+  updateMessageService: {
+    onProgress: 'UPDATE_MESSAGE_SERVICE/ON_PROGRESS',
+  },
 };

@@ -3,7 +3,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { AccountEditorComponent } from './account-editor.component';
-import { IconService } from 'src/app/base/electron/icon.service';
+import { IconService } from 'src/app/base/electron/emitter/icon.service';
 import { OuterAccountRepository } from 'src/app/base/repositories/outer-account.repository';
 import { ComponentsModule } from 'src/app/main/components/components.module';
 import { mockOuterAccount, mockUserAccount } from 'src/app/test/model';

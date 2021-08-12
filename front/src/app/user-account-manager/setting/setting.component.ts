@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, from } from 'rxjs';
 import { filter, mergeMap, pluck } from 'rxjs/operators';
 import { InputComponent } from 'src/app/base/components/input/input.component';
-import { KeyService } from 'src/app/base/electron/key.service';
+import { KeyService } from 'src/app/base/electron/emitter/key.service';
 import { UserAccountService } from 'src/app/base/models/userAccount.service';
 import { UserAccountRepository } from 'src/app/base/repositories/user-account.repository';
 import { UserAccount } from 'src/models';
